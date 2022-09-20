@@ -1,0 +1,137 @@
+﻿@model AngularCoreEmarketing.ViewModels.PlaceOrder
+<div class="badge badge-info">
+    Brand-Name
+</div>
+@if (User.Identity.IsAuthenticated)
+{
+
+    <div class="arrow-steps">
+        <div class="step current " id="progressStep1"><span>Select Products</span> </div>
+        <div class="step" id="progressStep2"> <span>Add Billing Address</span> </div>
+        <div class="step"> <span> Confirm Order</span> </div>
+    </div>
+    <form class="container" asp-action="PlaceOrder" asp-controller="Customer" method="post" enctype="multipart/form-data">
+        <div ng-controller="placeOrderController" ng-init="cartCounter=@Model.Cart.Count();freeDeliveryLimit=@Model.FreeDeliveryLimit">
+            <h4 class="text-center my-2" ng-show="step1">Select Product From Cart</h4>
+            <div class="row justify-content-center placeOrder" ng-show="step1">
+
+                @for (int index = 0; index < Model.Cart.Count; index++)
+                {
+                    <div class="row py-2">
+                        {{passValueToAngular(@Model.Cart[index].Product.ProductPrice,@Model.Cart[index].Product.DeliveryCharge)}}
+                        <div class="col-1">
+                            <div class="position-relative">
+                                <input type="checkbox" asp-for="Cart[index].CartChecked" ng-model="checkBox_@index" value="{{obj[@index].checkBox}}"
+                                       ng-change="sumTotal(@index,checkBox_@index)" ng-disabled="quantitySelected_@index==NaN" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <img src="/@Model.Cart[index].Product.ProductImage" width="150" height="150" />
+                        </div>
+                        <div class="col-7 text-right">
+                            <div class="row">
+                                <div class="col-4 my-1 text-right"><b>Description:</b></div><div class="col-8 my-1 text-left">@Model.Cart[index].Product.ProductName</div>
+                                <div class="col-4  my-1 text-right"><b>Price:</b></div><div class="col-8 my-1 text-left">@Model.Cart[index].Product.ProductPrice</div>
+                                <div class="col-4 my-1 text-right"><b>Quantity:</b></div>
+                                <div class="col-8 my-1 text-left">
+                                    @if (Model.Cart[index].Product.Sizes != null)
+                                    {
+
+                                        @if (Model.Cart[index].Product.Sizes.Any())
+                                        {
+                                            var sizesSelectList = new SelectList(Model.Cart[index].Product.Sizes, "AllSizes", "AllSizes");
+                                            <select ng-disabled="checkBox_@index" asp-items="sizesSelectList" ng-model="sizeSelected_@index" ng-change="loadQuantity(@Model.Cart[index].Product.Id,sizeSelected_@index,@index)">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                            <select ng-disabled="checkBox_@index" ng-model="quantitySelected_@index" ng-change="quantitySelected(quantitySelected_@index,@index)">
+                                                <option value="">--Select--</option>
+                                                <option ng-repeat="q in loadQuantity[@index]" value="{{q}}">{{q}}</option>
+                                            </select>
+                                        }
+                                        else
+                                        {
+                                            var quantityList = new List<int>();
+                                            for (int i = 1; i <= Model.Cart[index].Product.ProductStock; i++)
+                                            {
+                                                quantityList.Add(i);
+                                            }
+                                            var quantitySelectList = new SelectList(quantityList);
+                                            <select asp-items="new SelectList(quantityList)" ng-disabled="checkBox_@index" ng-model="quantitySelected_@index" ng-change="quantitySelected(quantitySelected_@index,@index)">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        }
+                                    }
+                                </div>
+                                <div class="col-4  my-1 text-right text-warning"><b>Delivery Charges:</b></div>
+                                <div class="col-8 text-left  my-1 text-warning">@Model.Cart[index].Product.DeliveryCharge per item</div>
+                                <div class="col-4  my-1 text-right"><b>Total for this item:</b></div>
+                                <div class="col-8  my-1 text-left">
+                                    <p>Price: {{quantitySelected_@index?quantitySelected_@index:0}} x @Model.Cart[index].Product.ProductPrice = {{quantitySelected_@index?quantitySelected_@index*obj[@index].price:0}}</p>
+                                    <p>Delivery Charges: {{quantitySelected_@index?quantitySelected_@index:0}} x  @Model.Cart[index].Product.DeliveryCharge = {{quantitySelected_@index?quantitySelected_@index*obj[@index].deliveryCharges:0}}</p>
+                                    <p class="font-weight-bold text-warning">Total: {{quantitySelected_@index?quantitySelected_@index*(obj[@index].price+obj[@index].deliveryCharges):0}}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="Cart[index].Id" />
+                    <input type="hidden" asp-for="Cart[index].ProductId" />
+                    <input type="hidden" asp-for="Cart[index].Quantity" value="{{quantitySelected_@index}}" />
+                    <input type="hidden" asp-for="Cart[index].Size" value="{{sizeSelected_@index}}" />
+                }
+
+                <div class="row mx-1">
+                    <b class="col-6 text-right border border-bottom-0">Total Price:</b><div class="col-6 text-left border border-bottom-0">{{totalPrice}}</div>
+                    <b class="col-6 text-right border border-bottom-0">Total Delivery Charges:</b><div class="col-6 text-left border border-bottom-0">{{totalDeliveryCharges}}</div>
+                    <b class="col-6 text-right border">Sum Total:</b><div class="col-6 text-left border">{{totalPrice+totalDeliveryCharges}}</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="offset-6 pr-0 text-right col-6">
+                    <button type="button" class="btn-next"  ng-show="step1" ng-click="step2Func()" ng-disabled="totalPrice==0||totalPrice==NaN">Next<i class="fa fa-arrow-alt-circle-right ml-2"></i></button>
+                </div>
+            </div>
+            <partial name="_customer/_DeliveryAddress" />
+
+        </div>
+    </form>
+
+}
+<script>
+    function openModal() {
+        var modal = $("#myModal");
+        if (modal.length > 0) {
+            setTimeout(function () {
+                var body = $(".bodyContainer").parent();
+                body.addClass("modal-open");
+                body.append("<div class='modal-backdrop fade show'></div>");
+                modal.addClass("show");
+                modal.show();
+            }, 100)
+        }
+        addAddress();
+    }
+    function closeModal() {
+        var modal = $("#myModal");
+        modal.hide();
+        modal.removeClass("show");
+        var body = $(".bodyContainer").parent();
+        body.removeClass("modal-open");
+        $(".modal-backdrop").remove();
+    }
+    function addAddress() {
+        var FirstName = $("#Address_FirstName").val();
+        var lastName = $("#Address_LastName").val();
+        var streetAddress = $("#Address_StreetAddress").val();
+        var city = $("#Address_City").val();
+        var state = $("#Address_State").val();
+        var country = $("#Address_Country").val();
+        var zipcode = $("#Address_ZipCode").val();
+        var div = $("#address-print");
+        div.text(FirstName + " " + lastName + ", " + streetAddress + ", " + city + ", " + state + ", " + country + ", " + zipcode);
+        var contact = $("#Address_ContactNumber").val();
+        $("#mobile-phone").text(contact);
+        var contact = $("#Address_Email").val();
+        $("#user-email").text(contact);
+    };
+</script>

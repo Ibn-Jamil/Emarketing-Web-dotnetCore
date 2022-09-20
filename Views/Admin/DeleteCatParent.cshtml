@@ -1,0 +1,24 @@
+﻿@model IEnumerable<AngularCoreEmarketing.Models.CatagoryMajor>
+
+<table class="table table-responsive offset-1 mt-5">
+    <tr class="bgandColor">
+        <th>
+            @Html.DisplayNameFor(model => model.MajorName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <b class="Arial-Rounded">@item.MajorName</b>
+        </td>
+        <td>
+            <a class="btn btn-outline-danger" asp-action="DeleteParent" asp-controller="Admin" asp-route-Id="@item.Id">
+            Delete<i class="fa fa-trash-alt ml-1"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>

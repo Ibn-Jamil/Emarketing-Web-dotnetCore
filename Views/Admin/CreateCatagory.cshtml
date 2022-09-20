@@ -1,0 +1,139 @@
+﻿@model AngularCoreEmarketing.ViewModels.CatagoryListViewModel
+@{
+    ViewBag.Title = "CreateCatagory";
+}
+
+<h4 class="text-center Arial-Rounded">Add Products Categories <i class="fa fa-plus-square"></i></h4>
+<hr />
+@if (User.IsInRole("Admin"))
+{
+    <div class="create-catagory-font">Grandchild Category</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 catBg">
+                <form asp-action="CatagoriesSpecific" asp-controller="Admin" method="post" enctype="multipart/form-data">
+                    <div class="form-horizontal">
+                        <div ng-controller="loadSubCatagoriesController" id="subCatagoriesAppId">
+
+                            <hr />
+                            <div asp-validation-summary="All"></div>
+                            <div class="form-group">
+                                <label asp-for="CatagoriesSpecific.CatagoriesName" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    <input asp-for="CatagoriesSpecific.CatagoriesName" class="form-control" />
+                                    <span asp-validation-for="CatagoriesSpecific.CatagoriesName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CatagoriesMajor.MajorName" class="control-label col-md-2"></label>
+                                <div class="col-md-10">
+                                    <select asp-for="CatagoriesMajor.Id" asp-items="ViewBag.MajorTableList" class="form-control">
+                                        <option value="0">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CatagoriesMajorSub.MajorSubName" class="control-label col-md-2"></label>
+                                <div class="col-md-10">
+                                    <select asp-for="CatagoriesMajorSub.Id" class="form-control">
+                                        <option>Sub Catagory</option>
+                                        <option ng-repeat="x in subCatagoryData" value="{{x.id}}">{{x.majorSubName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="text-danger"> @ViewBag.ErrorMajorSpecific</div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <a href="/Admin/DeleteCatGrandchild" class="btn btn-danger catDelete">Delete <i class="ml-1 fas fa-trash-alt"></i></a>
+            </div>
+
+
+            <div class="col-md-6">
+                <img src="~/Content/Illusration/GrandChild.jpg" class="img-responsive imgillustration" />
+            </div>
+        </div>
+        <div class="row bg-light my-4 py-2"></div>
+        <div class="create-catagory-font">Child Category</div>
+        <div class="row">
+            <div class="col-md-6 catBg">
+                <form asp-action="CatagoriesMajorSub" asp-controller="Admin" method="post" enctype="multipart/form-data">
+                    <div class="form-horizontal">
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="CatagoriesMajorSub.MajorSubName" class="control-label col-md-2"></label>
+                            <div class="col-md-10">
+                                <input asp-for="CatagoriesMajorSub.MajorSubName" class="form-control" />
+                                <span asp-validation-for="CatagoriesMajorSub.MajorSubName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CatagoriesMajor.MajorName" class="control-label col-md-2"></label>
+                            <div class="col-md-10">
+                                <select asp-for="CatagoriesMajor.Id" asp-items="ViewBag.MajorTableList" class="form-control">
+                                    <option>--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-danger">@ViewBag.ErrorMajorSub</div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/Admin/DeleteCatChild" class="btn btn-danger catDelete">Delete <i class="ml-1 fas fa-trash-alt"></i></a>
+
+                </form>
+            </div>
+            <div class="col-md-6">
+                <img src="~/Content/Illusration/Child.jpg" class="imgillustration img-responsive" />
+            </div>
+        </div>
+        <div class="row bg-light my-4 py-3 rounded"></div>
+
+        <div class="create-catagory-font">Parent Category</div>
+        <div class="row">
+            <div class="col-md-6 catBg">
+                <form asp-action="CatogryMajor" asp-controller="Admin" method="post" enctype="multipart/form-data">
+                    <div class="form-horizontal">
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="CatagoriesMajor.MajorName" class="control-label col-md-2"></label>
+                            <div class="col-md-10">
+                                <input asp-for="CatagoriesMajor.MajorName" class="form-control" />
+                                <span asp-validation-for="CatagoriesMajor.MajorName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="text-danger">@ViewBag.ErrorMajor</div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <a href="/Admin/DeleteCatParent" class="btn btn-danger catDelete">Delete<i class="ml-1 fas fa-trash-alt"></i></a>
+            </div>
+
+            <div class="col-md-6">
+                <img src="~/Content/Illusration/parentCat.jpg" class="img-responsive imgillustration" />
+            </div>
+        </div>
+    </div>
+}
+
+else
+{
+    <h3 class="text-danger text-center">You are Not Authorize To Add Any Category</h3>
+}
+<br />
+<br />

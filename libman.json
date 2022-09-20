@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "font-awesome@5.15.4",
+      "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "library": "bootbox.js@5.5.2",
+      "destination": "wwwroot/lib/bootbox.js/"
+    },
+    {
+      "library": "toastr.js@2.1.4",
+      "destination": "wwwroot/lib/toastr.js/"
+    },
+    {
+      "library": "typeahead.js@0.11.1",
+      "destination": "wwwroot/lib/typeahead.js/"
+    },
+    {
+      "library": "angular.js@1.8.2",
+      "destination": "wwwroot/lib/angular.js/"
+    },
+    {
+      "library": "bootstrap3-wysiwyg@0.3.3",
+      "destination": "wwwroot/bootstrap3-wysiwyg/"
+    },
+    {
+      "library": "wysihtml@0.5.5",
+      "destination": "wwwroot/lib/wysihtml/"
+    },
+    {
+      "library": "tinymce@5.10.2",
+      "destination": "wwwroot/lib/tinymce/"
+    }
+  ]
+}

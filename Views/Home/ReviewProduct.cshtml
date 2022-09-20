@@ -1,0 +1,67 @@
+﻿<button class="btn btn-primary" data-toggle="modal" data-target=".modal">Model</button>
+<div class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Review Product</h4>
+            </div>
+            <div class="modal-body form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-md-3">Comments:</label>
+                    <div class="col-md-9">
+                        <textarea id="ReviewsDescription" cols="40" rows="3" class="form-control" placeholder="Write your Review Here...."></textarea>
+                    </div>
+                </div>      
+                <input id="ratingStars" type="hidden" />
+                <div class="form-group">
+                    <label id="Rating Stars" class="control-label col-md-3"></label>
+                    <div class="col-md-5" onmouseout="clearStars()" ng-repeat="x in [1,2,3,4,5]">
+                        <span id="{{'SvgStarFillEmpty-'+x}}" onmouseover="fillStar(1)" onclick="rateProduct(1)"><partial name="_Home/_SvgStarFillEmpty"/></span>
+                     
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<environment>
+
+    <script>
+        function fillStar(limit) {
+            for (var i = 1; i <= limit; i++) {
+                var idString = i.toString();
+                var idPointer = "#SvgStarFillEmpty-" + idString;
+                $(idPointer + " .Fill").show();
+            }
+        }
+        function clearStars() {
+            $(".Fill").hide();
+        }
+        function rateProduct(rateMarks) {
+            clearStars = false;
+            fillStar = false;
+            for (var i = 1; i <= rateMarks; i++) {
+                var idString = i.toString();
+                var idPointer = "#SvgStarFillEmpty-" + idString;
+                $(idPointer + " .Fill").show();
+            }
+            for (var i = rateMarks + 1; i <= 5; i++) {
+                var idString = i.toString();
+                var idPointer = "#SvgStarFillEmpty-" + idString;
+                $(idPointer + " .Fill").hide();
+            }
+            document.getElementById("ratingStars").value = rateMarks;
+        }
+        function closeModel() {
+            var textArea = document.getElementById("ReviewsDescription");
+            textArea.value = "";
+            $(".modal").toggle();
+        }
+    </script>
+</environment>

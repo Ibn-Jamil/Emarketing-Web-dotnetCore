@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Http;
+@using AngularCoreEmarketing.Data;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<ul class="list-group list-unstyled">
+    
+    @if (SignInManager.IsSignedIn(User))
+    {
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle p-2 d-none d-md-block" data-toggle="dropdown" id="sessionName">
+            @Context.Session.GetString("Name")
+        </a>
+        <a class="mr-2 profileImage d-sm-block d-md-none position-relative drop" data-toggle="dropdown">
+        <img src="~/Content/WhiteIcon.png" width="35" height="35"><i class="fas fa-circle position-absolute text-success active-dot-Profile"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right mt-2" id="AuthUser" style="min-width:200px">
+            <li class="px-2 py-1 " onclick="javascript: window.location.href=''">
+                <a class="px-3" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                    <i class="fa fa-user"></i>
+                    Profile
+                </a>
+            </li>
+            <li class="position-relative px-2 py-1 "onclick="javascript: window.location.href='/Customer/CartCollection'">
+                <a href="/Customer/CartCollection" class="px-3 ">
+                    Active Shoppings
+                    <i class="fa fa-briefcase">
+                        <span class="badge badge-danger cartLook-small">@Context.Session.GetString("CartTotalProduct")</span>
+                    </i>
+                </a>
+            </li>
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="px-2 py-1 " onclick="javascript: window.location.href='/Admin/Index'">
+            <a href="/Admin/Index" class="px-3"><i class="fa fa-cog"></i> website settings</a>
+                </li>
+            }
+
+            <li class="px-2 pt-2 position-relative" onclick="javascript: window.location.href='/Customer/PurchasedList'">
+                <a href='/Customer/PurchasedList' class="px-3">
+                    Quick Actions
+                    <i class='fa fa-bell text-center'><span class='badge badge-danger bellLook'>@Context.Session.GetString("DeliveryNotification")</span></i>
+                </a>
+            </li>
+
+            <li onclick="javascript: window.location.href='/Identity/Account/Logout?returnUrl=/Home/Index'">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="nav-logout-link bg-white">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </li>
+
+    }
+    else
+    {
+        
+        <li class="dropdown mr-2 profileImage">
+            <img src="~/Content/WhiteIcon.png" width="35" height="35" class="dropdown-toggle" data-toggle="dropdown" />
+            <ul class="dropdown-menu dropdown-menu-right loginNavbar">
+                <li  class="px-2 py-1" onclick="javascript: window.location.href='/Identity/Account/Register'">
+                    <a class="" asp-area="Identity" asp-page="/Account/Register" id="registerLink">Register</a>
+                </li>
+                <li onclick="javascript: window.location.href='/Identity/Account/Login'">
+                    <a class="px-2 py-1" asp-area="Identity" asp-page="/Account/Login" id="loginLink">Login</a>
+                </li>
+            </ul>
+        </li>
+
+    }
+</ul>

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<AngularCoreEmarketing.Models.ProductDetails>
+<div class="card">
+    <div class="card-header">
+        <div class="font-weight-bold h4">Customers Queries & Reviews<i class="fa text-info fa-comment ml-1"></i></div>
+    </div>
+    <div class="card-body">
+        1)&emsp;Click on replay button it will redirect to the given product<br />
+        2)&emsp;Go to the comment & review section at the end of the page<br />
+        3)&emsp;Click on button to replay buttons to particular customers
+    </div>
+</div>
+@if (Model.Any())
+{
+    <div class="container">
+       
+            @foreach (var item in Model)
+            {
+                <div class="row border p-2 my-3">
+                    <div class="col-4">
+                        <img src="/@item.ProductImage" height="150" />
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-6 font-weight-bold text-right">
+                                Seller:
+                            </div>
+                            <div class="col-6 text-left">
+                                @Html.DisplayFor(modelItem => item.ProductSeller.UserName)
+                            </div>
+                            <div class="col-6 font-weight-bold text-right">
+                                @Html.DisplayNameFor(model => model.ProductName):
+                            </div>
+                            <div class="col-6 text-left">
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </div>
+                            <div class="col-6 font-weight-bold text-right">
+                                @Html.DisplayNameFor(model => model.Rating):
+                            </div>
+                            <div class="col-6 text-left">
+                                @Html.DisplayFor(modelItem => item.Rating)
+                            </div>
+                            <div class="col-6 font-weight-bold text-right">
+                                @Html.DisplayNameFor(model => model.ProductPrice):
+                            </div>
+                            <div class="col-6 text-left">
+                                @Html.DisplayFor(modelItem => item.ProductPrice)
+                            </div>
+                            <div class="col-6 font-weight-bold text-right">
+                                @Html.DisplayNameFor(model => model.ProductStock):
+                            </div>
+                            <div class="col-6 text-left">
+                                @Html.DisplayFor(modelItem => item.ProductStock)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-right">
+                                @{
+                                    var routvalues = new Dictionary<string, string>(){
+                                        {"id",item.Id.ToString() },
+                                        {"model","false" }
+                                     };
+                                }
+                                <a asp-action="Details" asp-controller="Home" asp-all-route-data="routvalues" class="btn btn-outline-info">Relpay<i class="ml-1 fa fa-reply"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+    </div>
+
+}
+else
+{
+    <h3 class="text-muted text-center">Currently there is no pending review or query thank you....</h3>
+}

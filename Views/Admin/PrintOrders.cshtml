@@ -1,0 +1,91 @@
+﻿@model IEnumerable<AngularCoreEmarketing.Models.OrderdProduct>
+@using AngularCoreEmarketing.ViewModels;
+<div class="container">
+    <div class="text-center border-bottom mb-2 pb-2"><h3>Customer Bill <i class="fa ml-1 fa-money-bill-alt"></i></h3><br /><b>Seller information:</b>&emsp;&copy;Brand Name: XYZ, Address: H1-Sector ABC Phase-111 XYZ, Phone:123456788, Email:XYZ&reg;Brandmail.com </div>
+    @if (Model.Any())
+    {
+        <div class="row py-2 my-2 bg-dark text-light">
+            <div class="offset-3 col-3 text-center">
+                @Html.DisplayNameFor(model => model.Product.ProductName)
+            </div>
+            <div class="col-1 text-center">
+                @Html.DisplayNameFor(model => model.Quantity)
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="row my-2">
+                <div class="col-3 text-center">
+                    <img src="/@item.Product.ProductImage" class="img-fluid" />
+                </div>
+                <div class="col-3">
+                    @Html.DisplayFor(modelItem => item.Product.ProductName)
+                </div>
+
+                <div class="col-1 text-center">
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </div>             
+            </div>
+            <div class="row border-top pt-2 my-3">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-3 text-right"><b>Customer Address:</b></div>
+                        <div class="col-9 text-left">
+                            @Html.DisplayFor(modelItem => item.Address.FirstName)
+                            @Html.DisplayFor(modelItem => item.Address.LastName),
+                            @Html.DisplayFor(modelItem => item.Address.StreetAddress),
+                            @Html.DisplayFor(modelItem => item.Address.City),
+                            @Html.DisplayFor(modelItem => item.Address.State),
+                            @Html.DisplayFor(modelItem => item.Address.Country),
+                            @Html.DisplayFor(modelItem => item.Address.ZipCode),
+                            <br />
+                            <b>Mobile/Phone:</b>  @Html.DisplayFor(modelItem => item.Address.ContactNumber),
+                            <br />
+                            <b> Email:</b>    @Html.DisplayFor(modelItem => item.Address.Email),
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-6 text-right"><b>Price:</b></div>
+                        <div class="col-6 text-left">
+                            @Html.DisplayFor(modelItem => item.Product.ProductPrice) x @Html.DisplayFor(modelItem => item.Quantity): @{var pr = item.Quantity * item.Product.ProductPrice;
+                                <span>@pr $</span> }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right"><b>Discount:</b></div>
+                        <div class="col-6 text-left">@Html.DisplayFor(modelItem => item.Product.ProductDiscount) %</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right"><b>Delivery Charges:</b></div>
+                        <div class="col-6 text-left">@Html.DisplayFor(modelItem => item.Product.DeliveryCharge) $</div>
+                    </div>
+                </div>
+                <div class="col-2 bg-light">
+                    <b>Total Invoice:</b>
+                    <hr />
+                    @{
+                        var total = Math.Abs(item.Quantity * item.Product.ProductPrice * (1 - (float)item.Product.ProductDiscount / 100) + item.Product.DeliveryCharge);
+                        int totalRounded = (int)total;
+                        <p class="font-weight-bold text-center">@totalRounded &#36;</p>
+                    }
+                </div>
+            </div><br />
+
+        }
+    }
+    else
+    {
+        <h3 class="text-muted text-center mt-5">! There are no Confirmed orders from the Seller to be Printed...</h3>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $("footer").hide();
+        window.print();
+        $(".container").parent().empty();
+    });
+</script>

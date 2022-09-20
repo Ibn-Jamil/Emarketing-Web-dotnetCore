@@ -1,0 +1,44 @@
+﻿@model IEnumerable<AngularCoreEmarketing.Models.CatagoryMajor>
+
+<h4 class="text-center Arial-Rounded my-3">
+    <i class="fa fa-trash-alt text-danger"></i><br />Delete Any Child Category
+</h4>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-4 bgandColor border-right text-center">
+            @Html.DisplayNameFor(model => model.MajorName)
+        </div>
+        <div class="col-6 bgandColor text-center">Sub Categories</div>
+
+    </div>
+</div>
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="row justify-content-center my-2">
+            <div class="col-10">
+                <div class="row bg-dark">
+                    <div class="col-4 h5 align-self-center text-center Arial-Rounded text-light">
+                        @Html.DisplayFor(modelItem => item.MajorName)
+                    </div>
+                    <div class="col-8">
+                        @foreach (var cat in item.MajorSubCatagory)
+                        {
+                            <div class="row bg-light my-2">
+                                <div class="col-6  text-right text-md-left align-self-center">
+                                    @Html.DisplayFor(modelItem => cat.MajorSubName)
+                                </div>
+                                <div class="col-6 text-right align-self-center pr-0">
+                                    <a asp-action="DeleteChild" asp-controller="Admin" asp-route-Id="@cat.Id" class="btn btn-danger">Delete
+                                    <i class="fa fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+ </div>
+

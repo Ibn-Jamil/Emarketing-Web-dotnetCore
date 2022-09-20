@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularCoreEmarketing", "AngularCoreEmarketing.csproj", "{9DD2A43C-655F-42C3-857B-B346055CCF07}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DD2A43C-655F-42C3-857B-B346055CCF07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DD2A43C-655F-42C3-857B-B346055CCF07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DD2A43C-655F-42C3-857B-B346055CCF07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DD2A43C-655F-42C3-857B-B346055CCF07}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ACC81E6D-1E3C-4DA2-BF05-30D123B8574A}
+	EndGlobalSection
+EndGlobal

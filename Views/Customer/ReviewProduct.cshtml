@@ -1,0 +1,180 @@
+﻿@{
+    ViewData["Title"] = "ReviewProduct";
+}
+<!--------Main Section-------->
+<div ng-controller="detailController">
+    <partial name="_customer/_modal.cshtml" />
+    <section class="mainProduct">
+        <div class="row">
+            <div class="col-md-7">
+                <div>
+                    <div id="placeholder">
+                        <a class="prev" ng-click="plusSlides(-1)">❮</a>
+                        <a class="next" ng-click="plusSlides(1)">❯</a>
+                        <div class="mySlides" ng-class="{'hideDisplay':$index>0}" ng-repeat="Entry in detail.productsDetailsDto.imageList">
+                            <div class="numbertext">{{$index+1+'/'+detail.productsDetailsDto.imageList.length}}</div>
+                            <img ng-src="{{serverPath +'/'+ Entry.imagePath}}" style="width:100%" height="450">
+                        </div>
+                    </div>
+                    <div id="placeholder1">
+                        <div class="column" ng-repeat="Entry in detail.productsDetailsDto.imageList">
+                            <img class="demo cursor" ng-src="{{serverPath+'/'+Entry.imagePath}}" style="width:100%" height="70" ng-click="currentSlide($index)" alt="Picture">
+                        </div>
+                    </div>
+                </div>
+                <div class="caption-container">
+                    <p id="caption"></p>
+                </div>
+                <div class="detail-price">{{detail.productsDetailsDto.productName}}</div>
+            </div>
+            <!---------rating------------->
+            <div class="col-md-5 p-4 border">
+                <div class="text-info">
+                    Answered Questions: <span class="badge badge-info">{{detail.productsFeedbackListDto.length}}</span>
+                    Customers Reviews: <span class="badge badge-info">{{detail.customersReviewListDto.length}}</span> Positive Seller: <span class="badge badge-info">{{averageReview*20}}%</span>
+                </div>
+                <div ng-if="detail.customersReviewListDto.length > 0">
+                    <div class="marginDiv">Ratings</div>
+                    <div>
+                        <span id="{{'SvgStarLinear-avg-'+i}}" ng-repeat="i in [1,2,3,4,5]"><Partial name="_customer/_linearSvgStar" /> </span>
+                    </div>
+                    {{LinearRating(averageReview, 'avg')}}
+                    <h5 class="totalreviews">{{averageReview}} average based on {{detail.customersReviewListDto.length}} reviews</h5>
+                    <div style="border:2px solid #dbdbdb"></div>
+                    <div>
+                        <div class="side-left"><div>5 stars</div></div>
+                        <div class="middle">
+                            <div class="bar-container"><div class="bar-5"></div></div>
+                        </div><div class="side-right"><div>{{fivestar}}</div></div>
+
+                        <div class="side-left"><div>4 stars</div></div><div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-4"></div>
+                            </div>
+                        </div><div class="side-right"><div>{{fourStar}}</div></div>
+
+                        <div class="side-left"><div>3 stars</div></div><div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-3"></div>
+                            </div>
+                        </div><div class="side-right"><div>{{threeStar}}</div></div>
+
+                        <div class="side-left"><div>2 stars</div></div><div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-2"></div>
+                            </div>
+                        </div><div class="side-right"><div>{{twoStar}}</div></div>
+
+                        <div class="side-left"><div>1 stars</div></div><div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-1"></div>
+                            </div>
+                        </div><div class="side-right"><div>{{oneStar}}</div></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mt-4 h3">Price {{detail.productsDetailsDto.productPrice|currency}}</div>
+                    <dl class="row">
+                        <dt class="col-5 text-right"><i class="glyphicon glyphicon-calendar"></i><span class="dt"> available Since:</span> </dt>
+                        <dd class="col-7 text-left">{{formateDate(detail.productsDetailsDto.productPostDate)}}</dd>
+                        <dt class="col-5 text-right"><span class="dt">in stock: </span> </dt>
+                        <dd class="col-7 text-left">{{detail.productsDetailsDto.productStock}}</dd>
+                        <dt class="col-5 text-right"><span class="dt"> discount: </span></dt>
+                        <dd class="col-7 text-left">{{detail.productsDetailsDto.productDiscount}}%</dd>
+                        <dt class="col-5 text-right"><span class="dt"> delivery charges: </span></dt>
+                        <dd class="col-7 text-left">{{detail.productsDetailsDto.deliveryCharge}} $</dd>
+                        <dt class="col-5 text-right"><span class="dt h4"> sizes: </span></dt>
+                        <dd class="col-7"><span class="sizes position-relative" ng-repeat="row in detail.productsDetailsDto.sizes"> {{row.allSizes}} <text class='sizeNumber'>{{row.quantity}}</text></span></dd>
+                    </dl>
+                </div>
+                <div class="offset-1 col-9 cart-buton-div" ng-click="AddToCart(id)">
+                    <span class="fa-shopping-icon"><i class="fa fa-shopping-cart"></i></span>
+                    <span class="cart-text"> add to cart</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr />
+    <!--------Description---------->
+
+    <div class="row container marginTop" ng-if="detail.productsDetailsDto.productDescription!=null">
+        <p class="col-12 productDescription">
+            <span class="h3">Detailed Description</span><br />
+            {{detail.productsDetailsDto.productDescription}}
+        </p>
+        <div class="col-12 productDescription">
+            <span class="h3">return policy</span><br />
+            <p>We are planning to introduce Return PO process.</p>
+
+            <div><b>Scenario:</b></div>
+            <p>– Goods received from vendor and stocked in warehouse and invoice receipted and payment run completed.</p>
+            <p>– Recognized these materials are having quality issues.</p>
+            <p>– Unwanted items wanted to return to vendor. Above is done after agreeing with vendor.</p>
+
+            <div><b>  Process:</b> </div>
+            <div>
+                <ul>
+                    <li>  Create a return PO  </li>
+                    <li>     Create a outbound delivery </li>
+                </ul>
+            </div>
+            <div><b>– Goods issue</b></div>
+
+            <p>Currently the above are planned. I want to know about the remaining process to complete the full cycle. </p>
+            <ul>
+                <li>   – Credit note creation  </li>
+                <li>  – Credit Note processing and etc.  </li>
+            </ul>
+
+
+
+        </div>
+    </div>
+
+    <br /><br />
+</div>
+<script>
+    $(document).ready(function () {
+        var str = window.location.href;
+        index = str.lastIndexOf("/");
+        id = str.slice(index + 1)
+        var modal = $("#myModal");
+        if (modal.length > 0) {
+            setTimeout(function () {
+                var body = $(".bodyContainer").parent();
+                body.addClass("modal-open");
+                body.append("<div class='modal-backdrop fade show'></div>");
+                modal.addClass("show");
+                modal.show();
+                document.getElementById("ProductDetailsId").value = id;
+            }, 100)
+        }
+    });
+    function fillStar(limit) {
+        for (var i = 1; i <= limit; i++) {
+            var idString = i.toString();
+            var idPointer = "#SvgStarFillEmpty-" + idString;
+            $(idPointer + " .Fill").show();
+        }
+    }
+    function clearStars() {
+        $(".Fill").hide();
+    }
+    function rateProduct(rateMarks) {
+        clearStars = false;
+        fillStar = false;
+        for (var i = 1; i <= rateMarks; i++) {
+            var idString = i.toString();
+            var idPointer = "#SvgStarFillEmpty-" + idString;
+            $(idPointer + " .Fill").show();
+        }
+        for (var i = rateMarks + 1; i <= 5; i++) {
+            var idString = i.toString();
+            var idPointer = "#SvgStarFillEmpty-" + idString;
+            $(idPointer + " .Fill").hide();
+        }
+        document.getElementById("RatingStars").value = rateMarks;
+    }
+</script>
+
+

@@ -1,0 +1,115 @@
+﻿
+@if (User.IsInRole("Admin"))
+{
+    var Notification = (List<int>)ViewBag.Notification;
+    <h3 class="text-center my-3">Administrative Actions <i class="fa fa-users-cog"></i></h3>
+    <div class="container">
+        <div class="row admin">
+            <div class="col-xl-3 col-md-4 col-sm-6 my-2">
+                <a href="/Admin/PostProduct">
+                    <div class="folder">
+                        <i class="fa fa-folder-open position-relative">
+                            <span class="Notification">@Notification[0]</span>
+                        </i>
+                    </div>
+                    <div class="postAProduct">
+                        <div class="title">Post A Product</div>
+                        Upload Product to Store. it is recommended to upload six product picture to gain aesthetic look
+                        and good animations
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-4 col-sm-6 my-2">
+                <a href="/Customer/PurchasedList">
+                    <div class="folder">
+                        <i class="fa fa-folder-open position-relative">
+                            <span class="Notification">@Notification[1]</span>
+                        </i>
+                    </div>
+                    <div class="postAProduct">
+                        <div class="title">Confirm Orders</div>
+                        confirm customer order will send a confirmation mail to customers to ensure
+                        them that their orders are successfully processed
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-4 my-2 col-sm-6">
+                <a href="/Admin/FlatSale">
+                    <div class="folder">
+                        <i class="fa fa-folder-open position-relative">
+                            <span class="Notification">@Notification[2]</span>
+                        </i>
+                    </div>
+                    <div class="postAProduct">
+                        <div class="title">Set Flat Sale %</div>
+                        In case you want to set sale on all products in your store e.g
+                        Black Friday Sale, Independence Day Sale etc..
+                        Use this option otherwise use edit product for custom sale values
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-4 my-2 col-sm-6">
+                <a href="/Admin/ProductList">
+                    <div class="folder">
+                        <i class="fa fa-folder-open position-relative">
+                            <span class="Notification">@Notification[3]</span>
+                        </i>
+                    </div>
+                    <div class="postAProduct">
+                        <div class="title">Edit/Delete A Product</div>
+                        Edit any segment of Product in case you made a mistake while uploading.
+                        Remember that delete option will delete picture permanently and you have to upload new picture
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-4 my-2 col-sm-6">
+                <a href="/Admin/ProductListResponse">
+                    <div class="folder">
+                        <i class="fa fa-folder-open position-relative">
+                            <span class="Notification">@Notification[4]</span>
+                            <span class="Notification doubleNotification">@Notification[5]</span>
+                        </i>
+                    </div>
+                    <div class="postAProduct">
+                        <div class="title">Thanks Reviewers/<br />Answer Customers</div>
+                        interactive with your customers by answering their queries to ensure their trust.
+                        You can optionally give feedback on their review to improve your reliability
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-4 my-2 col-sm-6">
+                <a href="/ClearDatabase/Index">
+                    <div class="fa fa-folder-open folder"></div>
+                    <div class="postAProduct">
+                        <div class="title">Refresh Database </div>
+                        Refresh Database to remove dumps data that remains mistakenly on database due to incomplete/failed requests
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-4 my-2 col-sm-6">
+                <a href="/Admin/CreateCatagory">
+                    <div class="fa fa-folder-open folder"></div>
+                    <div class="postAProduct">
+                        <div class="title">Create Category</div>
+                        Categories your Product, so that customer customers can find their
+                        required product easily. it will also reduce traffic on your server.
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-4 my-2 col-sm-6">
+                <a href="/Admin/DeliverOrders">
+                    <div class="folder">
+                        <i class="fa fa-folder-open position-relative">
+                            <span class="Notification">@Notification[6]</span>
+                        </i>
+                    </div>
+                    <div class="postAProduct">
+                        <div class="title">Mark Orders As delivered</div>
+                        After You Mark Order as delivered the Customer can have option to review the product.
+                        Good reviews help other customers to trust on the store.
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+}

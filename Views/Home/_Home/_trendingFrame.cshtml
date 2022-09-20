@@ -1,0 +1,30 @@
+﻿<div class="col-item">
+    <a href="{{'/Home/Details/'+row.id}}">
+        <div ng-if="row.productDiscount>0" class="sale trending-sale">{{row.productDiscount}} %off</div>
+        <div class="photo trending-photo">
+            <img src="{{'/'+row.productImage}}" class="img-responsive">
+        </div>
+        <div class="info trending-info">
+            <div class="trending-price">{{row.productName}}</div>
+            <div class="row">
+                <div class="col-sm-12 col-md-6 mt-1 price-reponsive">
+                    <div ng-if="row.productDiscount>0">
+                        <s class="text-muted">{{row.productPrice|currency:"&euro; ":0}}</s>
+                        <br />{{discountRate(row.productPrice,row.productDiscount)|currency:"&euro; ":0}}
+                    </div>
+                    <div ng-if="row.productDiscount==0">
+                        {{row.productPrice|currency :"&euro; ":0}}
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12" ng-if="row.rating>0">
+                    <span ng-repeat="i in [1,2,3,4,5]" id="SvgStarLinear-{{$parent.$index+'-'+i}}"><partial name="_Home/_SvgStarLinear" /></span>
+                    {{LinearRating(row.rating, $index)}}
+                </div>
+                <div class="col-md-6 col-sm-12" ng-if="row.rating==0" style="opacity:0.4">
+                    <span ng-repeat="i in [1,2,3,4,5]"><partial name="_Home/_SvgStarLinear" /></span>
+                </div>
+            </div>
+        </div>
+    </a>
+    </div>

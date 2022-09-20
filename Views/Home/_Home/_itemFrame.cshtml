@@ -1,0 +1,39 @@
+﻿    <div class="col-item">
+        <a href="{{'/Home/Details/'+row.id}}">
+            <div ng-if="row.productDiscount>0" class="sale">{{row.productDiscount}} %off</div>
+            <div class="photo">
+                <img src="{{'/'+row.productImage}}" class="img-responsive" alt="&emsp;*Image unavailible">
+            </div>
+            <div class="info">
+                <div class="price-text-color">{{row.productName}}</div>
+                <div class="row">
+                    <div class="col-6 price text-center">
+                        <div ng-if="row.productDiscount>0">
+                            <s class="text-muted">{{row.productPrice|currency}}</s>
+                            <br />{{discountRate(row.productPrice,row.productDiscount)|currency}}
+                        </div>
+                        <div ng-if="row.productDiscount==0">
+                            {{row.productPrice|currency}}
+                        </div>
+                    </div>
+
+                    <div class="col-6 text-center" ng-if="row.rating>0">
+                        <span ng-repeat="i in [1,2,3,4,5]" id="SvgStarLinear-{{$parent.$index+'-'+i}}"><partial name="_Home/_SvgStarLinear" /></span>
+                        {{LinearRating(row.rating, $index)}}
+                    </div>
+                    <div class="col-6" ng-if="row.rating==0" style="opacity:0.4">
+                        <span ng-repeat="i in [1,2,3,4,5]"><partial name="_Home/_SvgStarLinear" /></span>
+                    </div>
+                </div>
+            </div>
+        </a>
+            <div class="row rowForLine"></div>
+            <div class="row">
+                <div class="col-6 btn-add cursor" ng-click="AddToCart(row.id,false)">
+                    <div><i class="fa fa-shopping-cart"></i><br />Add to cart</div>
+                </div>
+                <div class="col-6 btn-cart cursor" ng-click="AddToCart(row.id,true)">
+                    <div><i class="fa fa-list"></i><br />Quick shop</div>
+                </div>
+            </div>
+</div>

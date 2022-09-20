@@ -1,0 +1,109 @@
+﻿@model IEnumerable<AngularCoreEmarketing.Models.OrderdProduct>
+@using AngularCoreEmarketing.ViewModels;
+<div class="container">
+    @if (Model.Any())
+    {
+    <div class="row py-2 my-2 bg-dark text-light">
+        <div class="offset-2 offset-md-3 col-3 text-center">
+            @Html.DisplayNameFor(model => model.Product.ProductName)
+        </div>
+        <div class="col-2 col-md-1 text-center">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </div>
+        <div class="col-2 text-center no-print">
+            @Html.DisplayNameFor(model => model.OrderStatus)
+        </div>
+        <div class="col-3 text-center no-print">
+                Seller Action
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+<div class="row my-2">
+    <div class="col-3 text-center">
+        <img src="/@item.Product.ProductImage" class="img-fluid" />
+    </div>
+    <div class="col-3">
+        @Html.DisplayFor(modelItem => item.Product.ProductName)
+    </div>
+
+    <div class="col-1 text-center">
+        @Html.DisplayFor(modelItem => item.Quantity)
+    </div>
+    @if (item.OrderStatus == orderStatus.Pending)
+    {
+        <div class="col-2 text-warning text-center no-print">
+            @Html.DisplayFor(modelItem => item.OrderStatus)
+        </div>
+    }
+    else
+    {
+        <div class="col-2 text-success text-center no-print">
+            @Html.DisplayFor(modelItem => item.OrderStatus)
+        </div>
+    }
+    <div class="col-3 text-center no-print">
+            @if (item.OrderStatus == orderStatus.Confirmed && User.IsInRole("Admin"))
+            {
+                <a class="btn btn-success" href="/Admin/DeliverOrdersSubmit/@item.Id">Mark as delivered <i class="fa fa-check-circle ml-1"></i></a>
+                <a class="btn btn-dark mt-4" href="/Admin/PrintOrders/@item.Id" target="_blank">Print Bill <i class="fa ml-1 fa-print"></i></a>
+            }
+        </div>
+    </div>
+    <div class="row border-top pt-2 my-3">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-4 text-right"><b>Customer Address:</b></div>
+                <div class="col-8 text-left">
+                    @Html.DisplayFor(modelItem => item.Address.FirstName)
+                    @Html.DisplayFor(modelItem => item.Address.LastName),
+                    @Html.DisplayFor(modelItem => item.Address.StreetAddress),
+                    @Html.DisplayFor(modelItem => item.Address.City),
+                    @Html.DisplayFor(modelItem => item.Address.State),
+                    @Html.DisplayFor(modelItem => item.Address.Country),
+                    @Html.DisplayFor(modelItem => item.Address.ZipCode),
+                    <br />
+                    <b>Mobile/Phone:</b>  @Html.DisplayFor(modelItem => item.Address.ContactNumber),
+                    <br />
+                    <b> Email:</b>    @Html.DisplayFor(modelItem => item.Address.Email),
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <div class="col-6 text-right"><b>Price:</b></div>
+                <div class="col-6 text-left">
+                    @Html.DisplayFor(modelItem => item.Product.ProductPrice) x @Html.DisplayFor(modelItem => item.Quantity): @{var pr = item.Quantity * item.Product.ProductPrice;
+                        <span>@pr $</span> }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 text-right"><b>Discount:</b></div>
+                <div class="col-6 text-left">@Html.DisplayFor(modelItem => item.Product.ProductDiscount) %</div>
+            </div>
+            <div class="row">
+                <div class="col-6 text-right"><b>Delivery Charges:</b></div>
+                <div class="col-6 text-left">@Html.DisplayFor(modelItem => item.Product.DeliveryCharge) $</div>
+            </div>
+        </div>
+        <div class="col-2 bg-light">
+            <b>Total Invoice:</b>
+            <hr />
+            @{
+                var total = Math.Abs(item.Quantity * item.Product.ProductPrice * (1 - (float)item.Product.ProductDiscount / 100) + item.Product.DeliveryCharge);
+                int totalRounded = (int)total;
+                <p class="font-weight-bold text-center">@totalRounded &#36;</p>
+            }
+        </div>
+    </div>
+    <div class="row bg-light my-4 py-2"></div>
+
+    }
+    }
+    else
+    {
+    <h3 class="text-muted text-center mt-5">! There are no Confirmed orders to be processed...</h3>
+    }
+</div>

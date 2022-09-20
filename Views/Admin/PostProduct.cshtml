@@ -1,0 +1,128 @@
+﻿@model AngularCoreEmarketing.ViewModels.PostProductViewModel
+@{
+    ViewBag.Title = "PostProduct";
+}
+
+<h2 class="text-center">Add Product to your Store</h2>
+<p class="text-center text-danger">@ViewBag.ErrorInStock</p>
+<form asp-action="PostProduct" asp-controller="Admin" method="post" enctype="multipart/form-data">
+
+    <div class="form-horizontal" id="postProductApp" ng-controller="postProductController">
+        <hr />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group row">
+            <label asp-for="ProductDetails.ProductName" class="badge text-left text-md-right col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="ProductDetails.ProductName" class="form-control" />
+                <span asp-validation-for="ProductDetails.ProductName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="ProductDetails.ProductPrice" class="badge text-left text-md-right col-md-2"></label>
+            <div class="col-md-3">
+                <input asp-for="ProductDetails.ProductPrice" class="form-control" placeholder="e.g 1500" />
+                <span asp-validation-for="ProductDetails.ProductPrice" class="text-danger"></span>
+            </div>
+            <label asp-for="ProductDetails.ProductStock" class="badge text-left text-md-right col-md-2"></label>
+            <div class="col-md-3">
+                <input asp-for="ProductDetails.ProductStock" class="form-control" />
+                <span asp-validation-for="ProductDetails.ProductStock" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="ProductDetails.DeliveryCharge" class="badge text-left text-md-right col-md-2"></label>
+            <div class="col-md-3">
+                <input asp-for="ProductDetails.DeliveryCharge" class="form-control" />
+                <span asp-validation-for="ProductDetails.DeliveryCharge" class="text-danger"></span>
+            </div>
+            <label asp-for="ProductDetails.ProductDiscount" class="badge text-left text-md-right col-md-2"></label>
+            <div class="col-md-3">
+                <input asp-for="ProductDetails.ProductDiscount" class="form-control" placeholder="e.g 15%" />
+                <span asp-validation-for="ProductDetails.ProductDiscount" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="badge text-left text-md-right col-md-2">Category</label>
+            <div class="col-md-3 my-1 my-md-0">
+                <select asp-items="ViewBag.CatagoryMajor as SelectList" ng-model="majorId" ng-change="loadChildCatagory(majorId)" class="form-control">
+                    <option value="">--Parent Category--</option>
+                </select>
+            </div>
+            <div class="col-md-3 my-1 my-md-0">
+                <select ng-model="majorSubId" ng-change="loadGrandChildCatagory(majorSubId)" class="form-control">
+                    <option value="">--Child Category--</option>
+                    <option value="{{row.id}}" ng-repeat="row in majorSubList">{{row.majorSubName}}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select asp-for="ProductDetails.CatagoriesSpecificId" id="ProductDetails_CatagoriesSpecificId" class="form-control">
+                    <option value="">--GrandChild Category--</option>
+                    <option value="{{x.id}}" ng-repeat="x in catSpecficList">{{x.catagoriesName}}</option>
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row" id="{{i}}" ng-repeat="i in ImageCountArray">
+            <label class="badge text-left text-md-right col-md-2">image-{{i}}</label>
+            <div class="col-md-4">
+                <input id="userImage" type="file" name="ProductImage" class="form-control" accept="image/*" />
+            </div>
+            <div class="col-md-4">
+                <input type="button" value="remove Image" class="btn btn-danger" ng-click="removeimg($index)" />
+            </div>
+        </div>
+
+        <div class="form-group row" id="imagUpload">
+            <label class="badge text-left text-md-right col-md-2">Parent Image</label>
+            <div class="col-md-6" style="padding-bottom:10px">
+                <input id="userImage" type="file" name="ProductImage" class="form-control" accept="image/jpg, image/jpeg, image/png" />
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-success" ng-click="addImage()">Add Another Image<i class="fa fa-plus-circle ml-1"></i> </button>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-md-2 badge text-left text-md-right">Select Size</label>
+            <div class="col-md-3">
+                <select id="Sizelist" ng-model="sizeList" class="form-control m-2" ng-change="AddSizeandQuantity(sizeList)">
+                    <option value="">--Sizes--</option>
+                    <option ng-repeat="size in listOfSizes">{{size}}</option>
+                </select>
+            </div>
+        </div>
+          
+                <div class="row form-group offset-1" ng-repeat="x in sizesQuantity">
+                    <label class="badge text-left text-md-right col-md-2">size</label>
+                    <div class="col-2">
+                        <input id="{{'ProductDetails_Sizes_'+$index+ '_AllSizes'}}" name="{{'ProductDetails.Sizes['+$index+'].AllSizes'}}" type="hidden" value="{{x}}" />
+                        <p class="form-control"> {{x}} </p>
+                    </div>
+                    <label class="badge text-left text-md-right col-md-2">Quantity</label>
+                    <div class="col-2">
+                        <input type="number" class="form-control" id="{{'ProductDetails_Sizes_'+$index+'_Quantity'}}" name="{{'ProductDetails.Sizes['+$index+'].Quantity'}}" />
+                    </div>
+                </div>
+
+        <div class="form-group row">
+            <label asp-for="ProductDetails.ProductDescription" class="badge text-left text-md-right col-md-2"></label>
+            <div class="col-md-10">
+                <textarea asp-for="ProductDetails.ProductDescription"></textarea>
+                <span asp-validation-for="ProductDetails.ProductDescription" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row justify-content-end">
+            <div class="col-md-10">
+                <button type="submit" class="btn btn-primary">Post to Website <i class="ml-1 fa fa-store"></i></button>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="~/lib/tinymce/tinymce.min.js"></script>
+<script>
+    var selectorId = "#ProductDetails_ProductDescription"; /*Id for WYSIWYG*/
+</script>
+<script src="~/lib/tinymce/fullFeatured.js"></script>

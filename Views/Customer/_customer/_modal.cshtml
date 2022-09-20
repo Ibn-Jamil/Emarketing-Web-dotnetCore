@@ -1,0 +1,32 @@
+﻿@model AngularCoreEmarketing.ViewModels.ReviewViewModel
+<div class="modal fade modalReview" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Review Product</h4>
+                </div>
+                <form asp-action="SubmitReview" asp-controller="Customer">
+                    <div class="modal-body form-horizontal">
+                        <div class="form-group">
+                            <label asp-for="ReviewsDescription" class="control-label col-md-3"></label>
+                            <div class="col-md-9">
+                                <textarea cols="40" rows="3" asp-for="ReviewsDescription" placeholder="Write your Review Here...." class="form-control"></textarea>
+                                <span asp-validation-for="ReviewsDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <input type="hidden" asp-for="RatingStars" />
+                        <input type="hidden" asp-for="ProductDetailsId" />
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Rating Stars</label>
+                            <div class="col-md-5" onmouseout="clearStars()">
+                                <span ng-repeat="x in [1,2,3,4,5]" id="{{'SvgStarFillEmpty-'+x}}" onmouseout="clearStars()" ng-mouseover="fillStar(x)" ng-click="rateProduct(x)"><partial name="_customer/_SvgStarFillEmpty" /></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

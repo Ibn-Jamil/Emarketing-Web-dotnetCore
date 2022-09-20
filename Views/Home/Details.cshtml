@@ -1,0 +1,262 @@
+﻿
+@{
+    ViewBag.Title = "Details";   
+}
+<!--------Main Section-------->
+<div ng-controller="detailController">
+    <section class="mainProduct Margin-top">
+        <div class="row container">
+            <div class="col-md-7 p-0 align-self-end">
+                <div>
+                    <div id="placeholder">
+                        <a class="prev" ng-click="plusSlides(-1)">❮</a>
+                        <a class="next" ng-click="plusSlides(1)">❯</a>
+                        <div class="mySlides" ng-class="{'hideDisplay':$index>0}" ng-repeat="Entry in detail.productsDetailsDto.imageList">
+                            <div class="numbertext">{{$index+1+'/'+detail.productsDetailsDto.imageList.length}}</div>
+                            <img ng-src="{{serverPath +'/'+ Entry.imagePath}}" style="width:100%" height="450">
+                        </div>
+                    </div>
+                    <div id="placeholder1">
+                        <div class="column" ng-repeat="Entry in detail.productsDetailsDto.imageList">
+                            <img ng-if="$index<6" class="demo cursor" ng-src="{{serverPath+'/'+Entry.imagePath}}" style="width:100%" height="70" ng-click="currentSlide($index)" alt="Picture">
+                        </div>
+                    </div>
+                </div>
+                <div class="caption-container">
+                    <p id="caption"></p>
+                </div>
+                <div class="row">
+                    <div class="col detail-price">
+                        {{detail.productsDetailsDto.productName}}
+                    </div>
+                </div>
+            </div>
+            <!---------rating------------->
+            <div class="col-md-5 p-4 border my-2 my-md-0">
+                <div class="row ml-2">
+                    <div class="text-info">
+                        Answered Questions: <span class="badge badge-info">{{detail.productsFeedbackListDto.length}}</span>
+                        Customers Reviews: <span class="badge badge-info">{{detail.customersReviewListDto.length}}</span> Positive Seller: <span class="badge badge-info" ng-if="averageReview.isNaN()">{{averageReview*20}}%</span>
+                    </div>
+                    <div ng-if="detail.customersReviewListDto.length > 0">
+                        <div class="marginDiv">Ratings</div>
+                        <div>
+                            <span id="{{'SvgStarLinear-avg-'+i}}" ng-repeat="i in [1,2,3,4,5]"><Partial name="_Home/_SvgStarLinear" /> </span>
+                        </div>
+                        {{LinearRating(averageReview, 'avg')}}
+                        <h5 class="totalreviews">{{averageReview}} average based on {{detail.customersReviewListDto.length}} reviews</h5>
+                        <div style="border:2px solid #dbdbdb"></div>
+                        <div>
+                            <div class="side-left"><div>5 stars</div></div>
+                            <div class="middle">
+                                <div class="bar-container"><div class="bar-5"></div></div>
+                            </div><div class="side-right"><div>{{fivestar}}</div></div>
+
+                            <div class="side-left"><div>4 stars</div></div><div class="middle">
+                                <div class="bar-container">
+                                    <div class="bar-4"></div>
+                                </div>
+                            </div><div class="side-right"><div>{{fourStar}}</div></div>
+
+                            <div class="side-left"><div>3 stars</div></div><div class="middle">
+                                <div class="bar-container">
+                                    <div class="bar-3"></div>
+                                </div>
+                            </div><div class="side-right"><div>{{threeStar}}</div></div>
+
+                            <div class="side-left"><div>2 stars</div></div><div class="middle">
+                                <div class="bar-container">
+                                    <div class="bar-2"></div>
+                                </div>
+                            </div><div class="side-right"><div>{{twoStar}}</div></div>
+
+                            <div class="side-left"><div>1 stars</div></div><div class="middle">
+                                <div class="bar-container">
+                                    <div class="bar-1"></div>
+                                </div>
+                            </div><div class="side-right"><div>{{oneStar}}</div></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <img ng-if="$index>=6" class="demo cursor" ng-src="{{serverPath+'/'+Entry.imagePath}}" style="width:100%" height="70" ng-click="currentSlide($index)" alt="Picture">
+                        <div class="col-12 mt-4 h3">Price {{detail.productsDetailsDto.productPrice|currency:"&euro; ":0}}</div>
+                        <dl class="row">
+                            <dt class="col-5 text-right"><i class="glyphicon glyphicon-calendar"></i><span class="dt"> available Since:</span> </dt>
+                            <dd class="col-7 text-left">{{formateDate(detail.productsDetailsDto.productPostDate)}}</dd>
+                            <dt class="col-5 text-right"><span class="dt">in stock: </span> </dt>
+                            <dd class="col-7 text-left">{{detail.productsDetailsDto.productStock}}</dd>
+                            <dt class="col-5 text-right"><span class="dt"> discount: </span></dt>
+                            <dd class="col-7 text-left">{{detail.productsDetailsDto.productDiscount}}%</dd>
+                            <dt class="col-5 text-right"><span class="dt"> delivery charges: </span></dt>
+                            <dd class="col-7 text-left">{{detail.productsDetailsDto.deliveryCharge}} $</dd>
+                            <dt class="col-5 text-right" ng-if="detail.productsDetailsDto.sizes.length >0"><span class="dt h4"> sizes: </span></dt>
+                            <dd class="col-7"><span class="sizes position-relative" ng-repeat="row in detail.productsDetailsDto.sizes"> {{row.allSizes}} <text class='sizeNumber'>{{row.quantity}}</text></span></dd>
+                        </dl>
+                    </div>
+                    <div class="offset-1 col-9 cart-buton-div" ng-click="AddToCart(id)">
+                        <span class="fa-shopping-icon"><i class="fa fa-shopping-cart"></i></span>
+                        <span class="cart-text"> add to cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row container my-4">
+        <i class="py-2 col-12 bg-light"></i>
+    </div>
+    @if (ViewBag.Seller == true)
+    {
+        <div class="container">
+            <div class="row my-2 justify-content-end">
+                <div>
+                    <a asp-action="Edit" asp-controller="Admin" asp-route-id=@ViewBag.Id class="btn btn-primary">Edit<i class="ml-1 fa fa-edit"></i></a>
+                    <button class="btn btn-outline-danger" ng-click="deleteProduct(id)">Delete<i class="fa fa-trash-alt"></i></button>
+                </div>
+
+            </div>
+        </div>
+    }
+    <!--------Description---------->
+
+    <div class="row container" ng-if="detailDescription!=null">
+        <div class="col-12 productDescription mb-3">
+            <span class="h3">Detailed Description</span><br />
+            <div ng-bind-html="detailDescription"></div>
+        </div>
+        <partial name="_Home/_returnPolicy" />
+    </div>
+    <!------------Trending--------->
+    <div class="my-3">
+        <partial name="_Home/_trending" />
+    </div>
+  
+    <div class="container">
+        <div class="row mx-1 border border-bottom-0" id="accordion-btn">
+            <a class="col-3 offset-1  btn btn-light" data-target="#question" id="btn1" onclick="activeLink('#btn1')" data-toggle="collapse">Questions</a>
+            <a class="col-3 btn btn-light active" data-target="#review" id="btn2" onclick="activeLink('#btn2')" data-toggle="collapse">Reviews</a>
+        </div>
+    </div>
+    <div id="accordion">
+        <section id="question" class="collapse show container" data-parent="#accordion">
+            <div class="row mx-1">
+                <div class="col-12 border border-top-0">
+                    <div class="panel panel-default widget">
+                        <div class="panel-heading" ng-if="detail.productsFeedbackListDto.length>0">
+                            <i class="fa fa-question mr-2"></i>
+                            <span class="badge badge-info">{{detail.productsFeedbackListDto.length}}<span ng-if="detail.productsFeedbackListDto.length > 2 && detail.productsFeedbackListDto.length<4">+</span></span>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item min">
+                                    @if (!User.Identity.IsAuthenticated)
+                                    {
+                                        <div class="m-2"> <a class="btn btn-warning" href="/Identity/Account/Login?ReturnUrl=%2FHome%2FDetails%2F{{id}}">Ask Seller <i class="ml-1 far fa-question-circle"></i></a></div>
+                                    }
+                                    @if (User.Identity.IsAuthenticated && ViewBag.Seller == false)
+                                    {
+                                        <div class="m-2"> <button class="btn btn-info" data-toggle="collapse" data-target="#askQuestion">Ask Seller <i class="ml-1 far fa-question-circle"></i></button></div>
+                                        <div class="collapse m-2 row" id="askQuestion">
+                                            <textarea class=" form-control col-8" placeholder="Ask Seller..."></textarea>
+                                            <div class="align-self-center col-2">
+                                                <button class="fas fa-arrow-circle-right fa-2x btn text-warning" ng-click="askQuestion(id,@String.Format("'{0}'",ViewBag.LoginUser))"></button>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="row">
+                                        <div class="col-11 my-3" id="Answar" ng-repeat="Q in detail.productsFeedbackListDto">
+                                            <div>
+                                                <div class="mic-info">By: <a href="#">{{Q.userName}}</a> {{formateDate(Q.questionTime)}}</div>
+                                            </div><div class="comment-text">{{Q.questions}}</div>
+                                            <div ng-if="Q.answar!=null">
+                                                <div class="col-10 seller-response">
+                                                    <div class="arrow-up"></div>
+                                                    <div class="mic-info col-12"><span class="fa fa-briefcase text-danger">&emsp;</span><span class="text-danger">Seller Response -within {{subtractDate(Q.questionTime, Q.answarTime)}}</span></div>
+                                                    <div class="comment-text col-12">{{Q.answar}}</div>
+                                                </div>
+                                            </div>
+                                            @if (User.Identity.IsAuthenticated && ViewBag.Seller == true)
+                                            {
+                                                <div class="row" ng-if="Q.answar==null">
+                                                    <button id="{{'Ansbtn_'+$index}}" class='btn btn-success' ng-click="openTextArea($index, Q.id, seller)">Answer Customer</button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="row justify-content-center more" ng-if="detail.productsFeedbackListDto.length > 2 && detail.productsFeedbackListDto.length<4" ng-click="loadAllQuestion(id)">
+                                <span class="fa fa-sync"> more</span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="review" class="collapse container" data-parent="#accordion" ng-if="detail.customersReviewListDto.length > 0">
+            <div class="row mx-1 border border-top-0">
+                <div class="col-12 ">
+                    <div class="panel panel-default widget">
+                        <div class="panel-heading">
+                            <i class="fa fa-comment"></i>
+                            <span class="badge badge-info">{{detail.customersReviewListDto.length}}</span>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-11" ng-repeat="Ans in detail.customersReviewListDto">
+                                            <div class="marginTop">
+                                                <div class="rating col-6" ng-show="Ans.ratingStars>0">
+                                                    <span ng-repeat="i in [1,2,3,4,5]" id="SvgStarLinear-{{$parent.$index+'-'+i}}"><partial name="_Home/_SvgStarLinear" /></span>
+                                                </div>
+                                                {{LinearRating(Ans.ratingStars, $index)}}
+                                                <div>
+                                                    <div class="mic-info">
+                                                        By: <a href="#">{{Ans.userName}}</a> {{formateDate(Ans.reviewTime)}}
+                                                        <span>
+                                                            <img class="verifyImg" width="15" height="16" src="~/Content/verifiedPurchase.png">
+                                                            <span class="text-success">Verified Purchase</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="comment-text">{{Ans.reviewsDescription}}</div>
+                                                </div>
+                                            </div>
+                                            <div ng-if="Ans.reviewResponse!=null">
+                                                <div class="col-11 seller-response">
+                                                    <div class="arrow-up"></div>
+                                                    <div class="mic-info col-12"><span class="fa fa-briefcase text-danger">&emsp;</span><span class="text-danger">Seller Response</span></div>
+                                                    <div class="comment-text col-12">{{Ans.reviewResponse}} </div>
+                                                </div>
+                                            </div>
+                                            @if (User.Identity.IsAuthenticated && ViewBag.Seller == true)
+                                            {
+                                                <div class="row" ng-if="Ans.reviewResponse==null">
+                                                    <button id="{{'reviewAnsbtn_'+$index}}" class='btn btn-success' ng-click="openTextAreaForReview($index, Ans.id, seller)">Answer Customer</button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <br /><br />
+</div>
+<input type="hidden" id="boolCheck" value="@ViewBag.Seller" />
+<script>
+    $("#addacomment").click(function () {
+        $('#addcomment').toggle();
+    });
+    function activeLink(id) {
+        $("#accordion-btn a").addClass("active");
+        $(id).removeClass("active");
+    }
+</script>
+
+

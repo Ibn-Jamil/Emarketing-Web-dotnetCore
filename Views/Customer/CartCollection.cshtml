@@ -1,0 +1,71 @@
+﻿@model AngularCoreEmarketing.ViewModels.PlaceOrder
+<div class="row justify-content-center">
+    <div class="text-info h3 font-italic position-relative">
+        Brand Name
+        <span class="badge badge-info" style="font-size:15px">
+            active shopping
+        </span>
+        <span class="fa fa-circle text-success position-absolute" style="font-size:15px"></span>
+    </div>
+
+</div>
+<br />
+<div class="container w-75">
+
+    @if (Model.Cart.Any())
+    {
+
+
+        @foreach (var item in Model.Cart)
+        {
+            <div class="row justify-content-center">
+
+                <div class="col-3">
+                    <img src="/@item.Product.ProductImage" class="img-thumbnail" />
+                </div>
+                <div class="col-7">
+                    <div class="row">
+                        <div class="col-6 text-right">
+                            <p><b>Description:</b></p>
+                        </div>
+                        <div class="col-6 text-left">
+                            <p>@item.Product.ProductName</p>
+                        </div>
+                        <div class="col-6 text-right">
+                            <p><b>Price:</b></p>
+                        </div>
+                        <div class="col-6 text-left">
+                            <p>@item.Product.ProductPrice</p>
+
+                        </div> <div class="col-6 text-right">
+                            <p><b>Delivery Charge:</b></p>
+                        </div>
+                        <div class="col-6 text-left">
+                            <p class="text-info">@item.Product.DeliveryCharge</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 align-self-center">
+                    <a href="/Home/RemoveFromeCart/@item.ProductId"><i class="fa fa-luggage-cart mr-2"></i>Remove</a>
+                </div>
+            </div>
+            <div class="row bg-light my-3 py-2"></div>
+
+        }
+
+        <div class="row my-5">
+            <div class="col-6">
+                <a href="/Customer/PlaceOrder" class="btn btn-info text-left"><i class="fas fa-shopping-bag mr-2"></i>Proceed To Check Out</a>
+            </div>
+            <div class="col-6 text-right">
+                <a href="/Home/Index" class="btn btn-info"><i class="fa fa-shopping-cart mr-2"></i>Continue Shopping</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="text-muted text-center h5 my-5">Cart is empty please add item in your cart...</div>
+    }
+</div>
+
+

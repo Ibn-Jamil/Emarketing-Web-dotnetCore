@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div class="container" ng-controller="homeIndexController">
+    <partial name="_Home/_carosel" />
+    <div ng-if="data.length>0">
+        <section class="mt-4">
+            <div class="container">
+                <div class="row" id="contentHolder">
+                    <h2 class='text-center text-danger' ng-show="data.length==0">No Product Exist in this Category</h2>
+                    <div class="customAlign" ng-show="requestStatus!=200">
+                        <p class="loading">Loading...</p>
+                        <img src="/Content/Untitled-1.png" class="animate" />
+                    </div>
+                    <div class="col-md-3 col-sm-6 itemHolder" ng-repeat="row in data">
+                        <partial name="_Home/_itemFrame" />
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <ul class="pagination">
+                        <li class="page-item" ng-if="currentPage>1">
+                            <a href="#" class="page-link" ng-click="changePage(currentPage-1)">prev</a>
+                        </li>
+                        <li ng-class="{'active':pageNumber==currentPage}" class="page-item" ng-repeat="pageNumber in pages">
+                            <a href="#" class="page-link" ng-click="changePage(pageNumber)">{{pageNumber}}</a>
+                        </li>
+                        <li class="page-item" ng-if="currentPage<pages.length">
+                            <a href="#" class="page-link" ng-click="changePage(currentPage+1)">next</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </section>
+        <!----------trending--------->
+        <partial name="_Home/_trending" />
+    </div>
+</div>
+
+<environment include="Development">
+    <script>
+        typeAhead();
+      function typeAhead() {
+            ///////////-----typeahead----------------////////////////////////////////////
+            var ProductName = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('productName'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/Api/FilterProductApi/search?Query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#typeahead').typeahead(null, {
+                name: 'ProductName',
+                display: 'productName',
+                source: ProductName,
+            });
+
+        };
+    </script>
+</environment>

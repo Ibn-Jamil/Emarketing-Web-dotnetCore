@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]BrandName</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+   
+</head>
+<body ng-app="sharedApp">
+    <div class="shashka no-print">
+        <div class="marquee"><p>This is basic announcement section for Important notices</p></div>
+    </div>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-light border-bottom box-shadow mb-3 row">
+
+            <a class="navbar-brand text-light p-1 d-none d-md-block" asp-area="" asp-controller="Home" asp-action="Index">Brand Logo</a>
+
+            <button class="mr-4 navbar-toggler bg-light position-relative" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse d-md-inline-flex">
+                <partial name="_Navbar" />
+            </div>
+            <a class="navbar-brand text-light p-1 d-block d-md-none" asp-area="" asp-controller="Home" asp-action="Index">Brand Logo</a>
+
+            <div class="py-1 pr-4 pr-sm-0">
+                <a href="/Customer/CartCollection" class="px-2 position-relative ">
+                    <i class="fa fa-cart-arrow-down navbar-cart-size"></i>
+                    <span class="badge badge-danger cartLook">@Context.Session.GetString("CartTotalProduct")</span>
+                </a>
+            </div>
+            <partial name="_LoginPartial" />
+
+
+        </nav>
+    </header>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <partial name="_ValidationScriptsPartial" />
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/toastr.js/toastr.min.js"></script>
+        <script src="~/lib/typeahead.js/typeahead.bundle.js"></script>
+        <script src="~/lib/angular.js/angular.js"></script>
+        <script src="~/js/angularSite.js"></script>
+    </environment>
+   
+    <div class="container bodyContainer">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top">
+        <div class="container">
+           <partial name="_Footer" />
+        </div>
+
+
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

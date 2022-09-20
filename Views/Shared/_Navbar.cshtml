@@ -1,0 +1,52 @@
+﻿<ul class="navbar-nav" ng-controller="sharedController">
+    <li class="dropdown main-dropdown dropdown-toggle px-1" data-toggle="dropdown" ng-repeat="catMajor in Nabardata" ng-if="$index<3">
+        <a href="#" ng-click="hideOpenedChildCatagories()">&emsp;{{catMajor.majorName}}</a>
+        <ul class="dropdown-menu">
+            <li class="position-relative ChildList my-1 py-1" ng-click="serachFromNavbar(catMajorSub.id,2)" ng-repeat="catMajorSub in catMajor.catagoryMajorSubDto">
+                <a href="#" class="pl-2 w-100">{{catMajorSub.majorSubName}}</a>
+                <button href="#" class="dropdown test" ng-click="nestedDD(catMajorSub.id,e)" ng-if="catMajorSub.catagorySpecificDto.length>0">
+                    <i class="fa fa-plus fa-xs"></i>
+                </button>
+                <ul class="dropdown-menu grandChildList" id="{{'cat'+catMajorSub.id}}">
+                    <li class="font-italic" ng-repeat="catSpecific in catMajorSub.catagorySpecificDto" ng-click="serachFromNavbar(catSpecific.id ,3)">
+                        <a href="#" class="pl-4 py-1">{{catSpecific.catagoriesName }}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+   
+</ul>
+<ul class="navbar-nav" ng-controller="sharedController">
+    <li class="dropdown main-dropdown px-1"  data-toggle="dropdown">
+    <a href="#" ng-click="hideOpenedCatagories()">&emsp;More<b class="ml-1 fa fa-plus-circle small"></b></a>
+        <ul  class="dropdown-menu">
+            <li ng-repeat="catMajor in Nabardata" ng-if="$index>=3" class="position-relative my-1 py-1">
+                <a ng-disabled="true"><b>&emsp;{{catMajor.majorName}}</b></a>
+                <button href="#" class="dropdown test" ng-click="disableBubbling(catMajor.id,e)" ng-if="catMajor.catagoryMajorSubDto.length>0">
+                    <i class="fa fa-plus fa-xs"></i>
+                </button>
+                <ul class="dropdown-menu ChildList-more" id="{{'catSub'+catMajor.id}}">
+                    <li class="position-relative ml-4 ml-md-0 my-1 py-1" ng-click="serachFromNavbar(catMajorSub.id,2)" ng-repeat="catMajorSub in catMajor.catagoryMajorSubDto">
+                        <a href="#" class="pl-2">{{catMajorSub.majorSubName}}</a>
+                        <button href="#" class="dropdown test" ng-click="nestedDD(catMajorSub.id,e)" ng-if="catMajorSub.catagorySpecificDto.length>0">
+                            <i class="fa fa-plus fa-xs"></i>
+                        </button>
+                        <ul class="dropdown-menu grandChildList" id="{{'cat'+catMajorSub.id}}">
+                            <li class="font-italic py-1" ng-repeat="catSpecific in catMajorSub.catagorySpecificDto" ng-click="serachFromNavbar(catSpecific.id ,3)">
+                                <a href="#" class="pl-4">{{catSpecific.catagoriesName }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+     </li>
+
+
+    <li class="ml-3 mb-sm-5 mb-md-0 hotSale-container">
+        <a class="blinking hotSale px-4 px-sm-0" href="#"> Hot Sale</a>
+    </li>
+</ul>
+    

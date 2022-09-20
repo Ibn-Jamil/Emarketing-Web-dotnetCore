@@ -1,0 +1,60 @@
+﻿<div class="row justify-content-center">
+    <div class="card col-8 px-0">
+        <div class="card-header">
+            <h4 class="text-center my-3">Refresh database</h4>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>
+            It Help to avoid any unexpected behavior
+                </li>
+                <li>
+            Lighten the database by removing garbage data
+                </li>
+                <li>
+            Use every time you see some bugs
+                </li>
+            </ul>
+            <div class="font-italic">Click the link below to refresh database and remove remained garbage and dump data</div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-outline-info font-weight-bold" asp-action="ClearAndRefresh" asp-controller="ClearDatabase">Refresh <i class="fa fa-sync"></i> </a>
+        </div>
+    </div>
+</div>
+<div class="row my-3 justify-content-center text-success">
+    <div class="card col-8">
+        <div class="card-body">
+        @if (@ViewBag.ClearAndRefresh != null)
+        {
+                <div>1)&emsp;@ViewBag.ClearAndRefresh &emsp; <i class="fa fa-check"></i></div>
+        }
+
+        @if (@ViewBag.RefreshProductReview != null)
+        {
+        <div>2)&emsp;@ViewBag.RefreshProductReview  &emsp;<i class="fa fa-check"></i></div>
+        }
+        @if (@ViewBag.RefreshQueriesTable != null)
+        {
+        <div>3)&emsp;@ViewBag.RefreshQueriesTable  &emsp;<i class="fa fa-check"></i></div>
+        }
+        @if (@ViewBag.RefreshReviewTable != null)
+        {
+        <div>4)&emsp;@ViewBag.RefreshReviewTable  &emsp;<i class="fa fa-check"></i></div>
+        }
+        @if (@ViewBag.RefreshCartTable != null)
+        {
+        <div>5)&emsp;@ViewBag.RefreshCartTable  &emsp;<i class="fa fa-check"></i></div>
+        }
+        @if (@ViewBag.RefreshProductSizesTable != null)
+        {
+        <div>6)&emsp;@ViewBag.RefreshProductSizesTable   &emsp;<i class="fa fa-check"></i></div>
+        }
+        @if (@ViewBag.RefreshIamgesDirectoriesTable != null)
+        {
+        <div>7)&emsp;@ViewBag.RefreshIamgesDirectoriesTable  &emsp;<i class="fa fa-check"></i></div>
+        }
+        </div>
+    </div>
+    
+</div>

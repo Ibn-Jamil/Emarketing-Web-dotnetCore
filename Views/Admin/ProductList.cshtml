@@ -1,0 +1,56 @@
+﻿@model IEnumerable<AngularCoreEmarketing.Models.ProductDetails>
+
+<h2 class="text-center marginBottom">
+    List of All Active Products
+</h2>
+
+@foreach (var item in Model) {
+    <hr />
+ <div class="row p-4">
+
+        <div class="col-12 col-md-2">
+            <img src="/@item.ProductImage" class="img-fluid" />
+        </div>
+        <div class="col-md-8 col-9 col-sm-8">
+            <div>
+                <span class="font-weight-bolder mr-2">Company Owner: </span>
+                <span>@item.ProductSeller.UserName</span>
+            </div>
+            <div>
+                <span class="font-weight-bolder  mr-2">Product Name: </span>
+                <span>@item.ProductName</span>
+            </div>
+            <div>
+                <span class="font-weight-bolder  mr-2">Delivery Charges: </span>
+                <span>@item.DeliveryCharge</span>
+            </div>
+            <div>
+                <span class="font-weight-bolder  mr-2">Rating: </span>
+                <span>@item.Rating</span>
+            </div>
+            <div>
+                <span class="font-weight-bolder  mr-2">Price:</span>
+                <span>@item.ProductPrice</span>
+            </div>
+            <div> 
+                <span class="font-weight-bolder  mr-2">Available Stock: </span>
+                <span>@item.ProductStock</span>
+            </div>
+            <div>
+                <span class="font-weight-bolder  mr-2">Discount: </span>
+                <span>@item.ProductDiscount</span>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="row justify-content-end">
+                <div class="my-4 mr-2">
+                    <a asp-action="Edit" asp-controller="Admin" asp-route-id="@item.Id" class="btn btn-info">Edit</a>
+                </div>
+                <div class="my-4">
+                    <a asp-action="DeleteProduct" asp-controller="Admin" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+

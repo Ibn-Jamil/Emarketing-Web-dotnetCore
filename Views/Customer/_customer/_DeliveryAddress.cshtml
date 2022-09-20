@@ -1,0 +1,92 @@
+﻿@model AngularCoreEmarketing.ViewModels.PlaceOrder
+<div ng-show="step2">
+    <h4 class="text-center">Billing Address</h4>
+    <div class=" row">
+        <div class="placeOrder form-horizontal col-12 p-4">
+            <hr />
+            <div class="form-group row">
+                <label asp-for="Address.FirstName" class="control-label col-2"></label>
+                <div class="col-4">
+                    <input asp-for="Address.FirstName" class="form-control" />
+                    <span asp-validation-for="Address.FirstName" class="text-danger"></span>
+                </div>
+                <label asp-for="Address.LastName" class="control-label col-2"></label>
+                <div class="col-4">
+                    <input asp-for="Address.LastName" class="form-control" />
+                    <span asp-validation-for="Address.LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <input type="hidden" asp-for="Address.CustomerId" value="@ViewBag.UserId" />
+            <div class="form-group row">
+                <label asp-for="Address.Email" class="control-label col-2"></label>
+                <div class="col-4">
+                    <input asp-for="Address.Email" class="form-control" />
+                    <span asp-validation-for="Address.Email" class="text-danger"></span>
+                </div>
+                <label asp-for="Address.ContactNumber" class="control-label col-3"></label>
+                <div class="col-3">
+                    <input asp-for="Address.ContactNumber" class="form-control" />
+                    <span asp-validation-for="Address.ContactNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Address.StreetAddress" class="control-label col-2"></label>
+                <div class="col-10">
+                    <textarea cols="60" rows="2" asp-for="Address.StreetAddress" class="form-control"></textarea>
+                    <span asp-validation-for="Address.StreetAddress" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Address.Country" class="control-label col-2"></label>
+                <div class="col-4">
+                    <select asp-for="Address.Country" asp-items="ViewBag.countryList as SelectList" class="form-control">
+                    </select>
+                </div>
+                <label asp-for="Address.State" class="control-label col-3"></label>
+                <div class="col-3">
+                    <input asp-for="Address.State" class="form-control" />
+                    <span asp-validation-for="Address.State" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Address.City" class="control-label col-2"></label>
+                <div class="col-4">
+                    <input asp-for="Address.City" class="form-control" />
+                    <span asp-validation-for="Address.City" class="text-danger"></span>
+                </div>
+                <label asp-for="Address.ZipCode" class="control-label col-3"></label>
+                <div class="col-3">
+                    <input asp-for="Address.ZipCode" class="form-control" />
+                    <span asp-validation-for="Address.ZipCode" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-1">
+                    <div class="checkbox">
+                        <input type="checkbox" asp-for="Address.SendGift"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Address.AdditionalRequests" class="control-label col-2"></label>
+                <div class="col-10">
+                    <textarea asp-for="Address.AdditionalRequests" cols="40" rows="3" class="form-control"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-6 px-0 text-left">
+            <button type="button" class="btn-next" ng-click="step1Func()"><i class="fa fa-arrow-alt-circle-left mr-2"></i>Back </button>
+        </div>
+        <div class="col-6 px-0 text-right">
+            <button type="button" onclick="openModal()" class="Confirm">Confirm Order <i class="fas fa-check-circle ml-1"></i></button>
+        </div>
+    </div>
+    <partial name="_customer/_OrderBeforeConfirmation"/>
+</div>

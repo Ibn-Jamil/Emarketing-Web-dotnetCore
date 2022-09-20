@@ -1,0 +1,231 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>aspnet-AngularCoreEmarketing-F1E5FC63-5F51-4C6F-B7EF-442D2673E89C</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\**" />
+    <Content Remove="Data\Migrations\**" />
+    <EmbeddedResource Remove="Data\Migrations\**" />
+    <None Remove="Data\Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Admin\CreateCatagory.cshtml" />
+    <None Include="Views\Admin\DeleteCatChild.cshtml" />
+    <None Include="Views\Admin\DeleteCatGrandchild.cshtml" />
+    <None Include="Views\Admin\DeleteCatParent.cshtml" />
+    <None Include="Views\Admin\Edit.cshtml" />
+    <None Include="Views\Admin\FlatSale.cshtml" />
+    <None Include="Views\Admin\Index.cshtml" />
+    <None Include="Views\Admin\PostProduct.cshtml" />
+    <None Include="Views\Admin\ProductList.cshtml" />
+    <None Include="Views\Admin\ProductListResponse.cshtml" />
+    <None Include="Views\Customer\CartCollection.cshtml" />
+    <None Include="Views\Customer\PlaceOrder.cshtml" />
+    <None Include="Views\Customer\PurchasedList.cshtml" />
+    <None Include="Views\Customer\_customer\_SvgStarFillEmpty.cshtml" />
+    <None Include="Views\Home\CartList.cshtml" />
+    <None Include="Views\Home\Details.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\ReviewProduct.cshtml" />
+    <None Include="Views\Home\_Home\_carosel.cshtml" />
+    <None Include="Views\Home\_Home\_itemFrame.cshtml" />
+    <None Include="Views\Home\_Home\_SvgFillEmpty.cshtml" />
+    <None Include="Views\Home\_Home\_SvgStarLinear.cshtml" />
+    <None Include="Views\Home\_Home\_trending.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_LoginPartial.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+    <None Include="wwwroot\Content\PrdouctImages\2.webp" />
+    <None Include="wwwroot\Content\PrdouctImages\2123508022022.webp" />
+    <None Include="wwwroot\Content\PrdouctImages\4120408022022.webp" />
+    <None Include="wwwroot\Content\PrdouctImages\5114607022022.webp" />
+    <None Include="wwwroot\Content\star-solid.svg" />
+    <None Include="wwwroot\Content\Star.svg" />
+    <None Include="wwwroot\js\angularSite.js" />
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\lib\angular.js\angular.js" />
+    <None Include="wwwroot\lib\angular.js\angular.min.js" />
+    <None Include="wwwroot\lib\angular.js\angular.min.js.map" />
+    <None Include="wwwroot\lib\bootbox.js\bootbox.js" />
+    <None Include="wwwroot\lib\bootbox.js\bootbox.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\lib\font-awesome\js\all.js" />
+    <None Include="wwwroot\lib\font-awesome\js\all.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\brands.js" />
+    <None Include="wwwroot\lib\font-awesome\js\brands.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\conflict-detection.js" />
+    <None Include="wwwroot\lib\font-awesome\js\conflict-detection.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\fontawesome.js" />
+    <None Include="wwwroot\lib\font-awesome\js\fontawesome.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\regular.js" />
+    <None Include="wwwroot\lib\font-awesome\js\regular.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\solid.js" />
+    <None Include="wwwroot\lib\font-awesome\js\solid.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\v4-shims.js" />
+    <None Include="wwwroot\lib\font-awesome\js\v4-shims.min.js" />
+    <None Include="wwwroot\lib\font-awesome\sprites\brands.svg" />
+    <None Include="wwwroot\lib\font-awesome\sprites\regular.svg" />
+    <None Include="wwwroot\lib\font-awesome\sprites\solid.svg" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <None Include="wwwroot\lib\tinymce\fullFeatured.js" />
+    <None Include="wwwroot\lib\tinymce\icons\default\icons.min.js" />
+    <None Include="wwwroot\lib\tinymce\jquery.tinymce.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\advlist\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\advlist\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\anchor\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\anchor\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\autolink\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\autolink\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\autoresize\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\autoresize\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\autosave\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\autosave\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\bbcode\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\bbcode\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\charmap\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\charmap\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\codesample\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\codesample\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\code\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\code\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\colorpicker\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\colorpicker\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\contextmenu\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\contextmenu\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\directionality\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\directionality\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\emoticons\js\emojiimages.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\emoticons\js\emojis.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\emoticons\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\emoticons\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\fullpage\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\fullpage\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\fullscreen\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\fullscreen\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\help\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\help\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\hr\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\hr\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\imagetools\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\imagetools\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\image\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\image\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\importcss\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\importcss\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\insertdatetime\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\insertdatetime\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\legacyoutput\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\legacyoutput\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\link\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\link\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\lists\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\lists\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\media\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\media\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\nonbreaking\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\nonbreaking\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\noneditable\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\noneditable\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\pagebreak\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\pagebreak\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\paste\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\paste\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\preview\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\preview\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\print\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\print\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\quickbars\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\quickbars\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\save\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\save\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\searchreplace\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\searchreplace\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\spellchecker\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\spellchecker\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\tabfocus\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\tabfocus\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\table\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\table\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\template\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\template\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\textcolor\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\textcolor\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\textpattern\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\textpattern\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\toc\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\toc\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\visualblocks\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\visualblocks\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\visualchars\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\visualchars\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\wordcount\plugin.js" />
+    <None Include="wwwroot\lib\tinymce\plugins\wordcount\plugin.min.js" />
+    <None Include="wwwroot\lib\tinymce\themes\mobile\theme.min.js" />
+    <None Include="wwwroot\lib\tinymce\themes\silver\theme.min.js" />
+    <None Include="wwwroot\lib\tinymce\tinymce.min.js" />
+    <None Include="wwwroot\lib\toastr.js\toastr.js.map" />
+    <None Include="wwwroot\lib\toastr.js\toastr.min.js" />
+    <None Include="wwwroot\lib\typeahead.js\bloodhound.js" />
+    <None Include="wwwroot\lib\typeahead.js\bloodhound.min.js" />
+    <None Include="wwwroot\lib\typeahead.js\typeahead.bundle.js" />
+    <None Include="wwwroot\lib\typeahead.js\typeahead.bundle.min.js" />
+    <None Include="wwwroot\lib\typeahead.js\typeahead.jquery.js" />
+    <None Include="wwwroot\lib\typeahead.js\typeahead.jquery.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\" />
+  </ItemGroup>
+
+</Project>

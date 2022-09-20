@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AngularCoreEmarketing.ViewModels.CartViewModel>
+
+@if (Model.Any())
+{
+    <div class="container mt-5">
+        <div class="row my-2 py-2 bg-dark text-light">
+            <div class="col-3">
+
+                <b>@Html.DisplayNameFor(model => model.Name)</b>
+            </div>
+            <div class="col-7">
+                <b>@Html.DisplayNameFor(model => model.Description)</b>
+            </div>
+        </div>
+
+        @foreach (var item in Model)
+        {
+            <div class="row my-3">
+                <div class="col-3">
+                    <img src="/@item.Image" class="img-thumbnail mb-3" /><br />
+                    @item.Name
+                </div>
+                <div class="col-7">@Html.Raw(item.Description)</div>
+                <div class="col-2 mt-2">
+                    <a href="/Home/Details/@item.PorductId" class="btn btn-outline-info">Details <i class="ml-2 fa fa-arrow-alt-circle-right"></i></a><br />
+                    <a href="/Home/RemoveFromeCart/@item.PorductId" class="btn btn-outline-danger mt-5"><i class="mr-2 fa fa-trash-alt"></i>Delete</a>
+                </div>
+            </div>
+            <div class="row bg-light my-4 py-2"></div>
+
+        }
+
+    </div>
+
+}
+else
+{
+    <p class="text-center text-muted">you have no items in the cart please select..</p>
+}

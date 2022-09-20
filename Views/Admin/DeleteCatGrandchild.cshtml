@@ -1,0 +1,56 @@
+﻿@model IEnumerable<AngularCoreEmarketing.Models.CatagoryMajor>
+
+<h3 class="text-center my-3 Arial-Rounded">
+    <i class="ml-1 fa fa-trash-alt text-danger"></i><br /> Delete Any Grandchild Catagory
+</h3>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-3 bgandColor border-right text-center">
+            @Html.DisplayNameFor(model => model.MajorName)
+        </div>
+        <div class="col-3 bgandColor border-right text-center">
+            Child Category
+        </div>
+        <div class="col-3 bgandColor text-center">
+            Grand Child Category
+        </div>
+    </div>
+  </div>
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="row justify-content-center mb-2">
+            <div class="col-9">
+                <div class="row border bg-dark">
+                    <div class="col-4 h4 align-self-center text-center text-light Arial-Rounded">
+                        @Html.DisplayFor(modelItem => item.MajorName)
+                    </div>
+                    <div class="col-8">
+                        @foreach (var sub in item.MajorSubCatagory)
+                        {
+                            <div class="row border-left border-bottom bg-info">
+                                <div class="col-6 font-weight-bold align-self-center text-light">
+                                    @Html.DisplayFor(modelItem => sub.MajorSubName)
+                                </div>
+                                <div class="col-6">
+                                    @foreach (var entry in sub.SpecificCatagory)
+                                    {
+                                        <div class="row bg-light my-2">
+                                            <div class="col align-self-center text-right text-md-left">@entry.CatagoriesName</div>
+                                            <div class="col align-self-center text-right pr-0">
+                                                <a href="/Admin/DeleteGrandchild/@entry.Id" class="btn btn-danger">
+                                                Delete<i class="ml-1 fa fa-trash-alt"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    }
+</div>
